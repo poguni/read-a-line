@@ -836,7 +836,7 @@ async function afterLogin(u) {
   if (preLogin) offerUpload(preLogin);
 }
 function offerUpload(local) {
-  confirmModal('이 기기 기록을 올릴까요?', `로그인 전에 이 기기에 남긴 기록(책 ${local.books.length}권, 빙고판 ${local.boards.length}개)이 있어요. ${S ? '계정에 있는 기록에 합치고, 이 기기의 빙고판은 보관함에 넣어요.' : '계정에 올리면 다른 기기에서도 볼 수 있어요.'}<br>올리지 않으면 이 기기 기록은 지워져요.`, [
+  confirmModal('이 기기 기록을 올릴까요?', `로그인 전에 이 기기에 남긴 기록(책 ${local.books.length}권, 빙고판 ${local.boards.length}개)이 있어요. ${S ? '계정에 있는 기록에 합치고, 이 기기의 빙고판은 판 관리에 보관해요.' : '계정에 올리면 다른 기기에서도 볼 수 있어요.'}<br>올리지 않으면 이 기기 기록은 지워져요.`, [
     { label: '올리지 않기' },
     { label: '이 기기 기록 올리기', primary: true, run() {
       const l = reid(local, true);
@@ -954,7 +954,7 @@ function viewHome() {
       </div>
       <div class="board-frame"><div class="board" id="board" style="--n:${b.size};--gap:${gap}px">${cells}<svg class="lines" id="lines" aria-hidden="true"></svg></div></div>
       <div class="board-actions m-only"><button class="btn primary big" data-act="add-book">${ic('plus')}읽은 책 추가</button><button class="btn big" data-act="shuffle" aria-label="빈 칸 미션 섞기">${ic('shuffle')}</button><button class="btn big" data-act="share" aria-label="공유">${ic('share')}</button></div>
-      <p class="hint">칸을 누르면 책을 놓거나 미션을 바꿀 수 있어요. 끌어서(휴대폰은 길게 누른 뒤) 칸 위치를 바꿔요 · ${filled}/${fillable}칸 채움</p>
+      <p class="hint">칸을 누르면 책을 놓거나 미션을 바꿀 수 있어요. 칸을 끌어서(휴대폰은 길게 누른 뒤) 위치를 바꿀 수도 있어요 · ${filled}/${fillable}칸 채움</p>
     </section>
     <div class="home-side">
       <div class="d-only span-all">${summaryHTML(p)}</div>
@@ -1109,7 +1109,7 @@ function viewSettings() {
     <section class="card"><h2>화면</h2>
       <label class="check"><input type="checkbox" id="motion" ${S.profile.motion ? 'checked' : ''}> 빙고 애니메이션과 색종이 효과</label>
       <p class="muted" style="font-size:13px">기기의 '동작 줄이기' 설정이 켜져 있으면 효과가 자동으로 줄어들어요.</p>
-      <label class="check"><input type="checkbox" id="sound" ${S.profile.sound ? 'checked' : ''}> 효과음 (책 놓기 · 빙고 · 보상)</label>
+      <label class="check"><input type="checkbox" id="sound" ${S.profile.sound ? 'checked' : ''}> 효과음(책 놓기 · 빙고 · 보상)</label>
     </section>
     <section class="card"><h2>빙고 보상</h2>
       <p class="muted" style="font-size:14px;margin-bottom:12px">빙고 줄을 완성할 때마다 나에게 줄 보상을 정해요. ${b.year}년 보상 ${rewardsOf(b.year).length}개가 있어요.</p>
@@ -1528,7 +1528,7 @@ function openBookForm(book, presetIdx) {
       <div class="row2"><label class="field"><span>저자</span><input name="author" maxlength="60" value="${esc(bk.author)}"></label><label class="field"><span>완독일</span><input name="finishedAt" type="date" value="${esc(bk.finishedAt)}"></label></div>
       <div class="row2"><label class="field"><span>쪽수</span><input name="pages" type="number" min="1" max="9999" value="${esc(bk.pages)}"></label>
         <div class="field"><span id="rt-l">별점</span><div class="star-pick" role="group" aria-labelledby="rt-l">${[1, 2, 3, 4, 5].map(n => `<button type="button" data-star="${n}" aria-label="${n}점" aria-pressed="${n <= rating}" class="${n <= rating ? 'on' : ''}">★</button>`).join('')}</div></div></div>
-      <label class="field"><span>태그 <span class="muted" style="font-weight:400">(쉼표로 구분 · 예: 과학, 번역서)</span></span><input name="tags" value="${esc((bk.tags || []).join(', '))}"></label>
+      <label class="field"><span>태그<span class="muted" style="font-weight:400">(쉼표로 구분 · 예: 과학, 번역서)</span></span><input name="tags" value="${esc((bk.tags || []).join(', '))}"></label>
       <label class="field"><span>한 줄 메모</span><textarea name="memo" maxlength="300">${esc(bk.memo)}</textarea></label>
     </div>
     <div class="bf-place">
@@ -1588,7 +1588,7 @@ function changeSize(n) {
     toast(`${n}×${n} 빙고판으로 바꿨어요.` + (lost ? ` 칸이 모자라 ${lost}권은 미배치로 옮겼어요.` : ''));
   };
   if (!placed.length) { make(false); return; }
-  confirmModal(`${n}×${n} 빙고판으로 바꿀까요?`, `지금 빙고판에 책 ${placed.length}권이 놓여 있어요. 지금 판은 보관함에 남아요.<br><b>책 옮기기</b>: 놓인 책과 미션을 새 판으로 가져가요.${n * n - (free ? 1 : 0) < placed.length ? ' 칸이 모자라면 일부는 미배치로 옮겨져요.' : ''}<br><b>새 판으로 시작</b>: 빈 빙고판으로 시작해요. 책은 책장에 그대로 있어요.`, [
+  confirmModal(`${n}×${n} 빙고판으로 바꿀까요?`, `지금 빙고판에 책 ${placed.length}권이 놓여 있어요. 지금 판은 판 관리에 남아요.<br><b>책 옮기기</b>: 놓인 책과 미션을 새 판으로 가져가요.${n * n - (free ? 1 : 0) < placed.length ? ' 칸이 모자라면 일부는 미배치로 옮겨져요.' : ''}<br><b>새 판으로 시작</b>: 빈 빙고판으로 시작해요. 책은 책장에 그대로 있어요.`, [
     { label: '취소' }, { label: '새 판으로 시작', run: () => make(false) }, { label: '책 옮기기', primary: true, run: () => make(true) }
   ]);
 }
@@ -1682,7 +1682,7 @@ function openShare() {
         if (k === 'native') { if (!canvas) return; canvas.toBlob(async blob => { const file = new File([blob], fname(), { type: 'image/png' }); if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: '한 줄 독서' }); } catch (err) { } } else { download(); } }); }
         if (k === 'copy') { const t = $('#code', m); try { await navigator.clipboard.writeText(t.value); toast('코드를 복사했어요.'); } catch (err) { t.select(); document.execCommand('copy'); toast('코드를 복사했어요.'); } }
         if (k === 'load') { const o = decodeBoard($('#code-in', m).value); if (!o) { toast('올바른 빙고판 코드가 아니에요.'); return; }
-          confirmModal('이 빙고판을 불러올까요?', `「${esc(o.t)}」 ${o.s}×${o.s} 빙고판이에요. 지금 판은 보관함으로 옮기고, 놓여 있던 책은 미배치 책이 돼요.`, [{ label: '취소' }, { label: '불러오기', primary: true, run() {
+          confirmModal('이 빙고판을 불러올까요?', `「${esc(o.t)}」 ${o.s}×${o.s} 빙고판이에요. 지금 판은 판 관리로 옮기고, 놓여 있던 책은 미배치 책이 돼요.`, [{ label: '취소' }, { label: '불러오기', primary: true, run() {
             const cur = board(); const nb = makeBoard(o.s, !!o.f, o.m.filter(Boolean), o.t); if (cur.cells.some(c => c.bookId)) cur.archived = true; else S.boards = S.boards.filter(x => x.id !== cur.id);
             S.boards.push(nb); S.activeBoardId = nb.id; save(); go('home'); toast('친구의 빙고판을 불러왔어요!'); } }]); }
       });
