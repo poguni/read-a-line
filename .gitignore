@@ -1,0 +1,25 @@
+# 작업 도구가 만드는 기록·임시 폴더
+.omc/
+.playwright-mcp/
+.claude/
+
+# Supabase CLI 로컬 작업 파일 (migrations 폴더는 커밋합니다)
+supabase/.temp/
+supabase/.branches/
+
+# 비밀 정보 — service_role 키 등은 절대 커밋하지 않습니다
+.env
+.env.*
+
+# 편집기·운영체제가 만드는 파일
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.bak
+
+# 로그·의존성(이 앱은 빌드가 없지만 혹시 생길 때를 대비)
+*.log
+node_modules/

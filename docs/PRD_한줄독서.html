@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>한 줄 독서 PRD</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+  :root{--bg:#faf6ee;--paper:#fffdf8;--ink:#2b2622;--muted:#6f655b;--line:#e6dccb;--accent:#c2562f;--accent2:#2f6f6a;--soft:#f3ebdc;--code:#f4efe6}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1916;--paper:#24211d;--ink:#ece6dc;--muted:#a99f92;--line:#3a352f;--accent:#e88a62;--accent2:#6fc0b8;--soft:#2e2a25;--code:#2a2622}}
+  :root[data-theme="dark"]{--bg:#1b1916;--paper:#24211d;--ink:#ece6dc;--muted:#a99f92;--line:#3a352f;--accent:#e88a62;--accent2:#6fc0b8;--soft:#2e2a25;--code:#2a2622}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;line-height:1.75;word-break:keep-all;font-size:16px}
+  main{max-width:920px;margin:32px auto;padding:48px 56px;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 40px rgba(60,40,20,.07)}
+  .hero{display:flex;gap:22px;align-items:center;margin-bottom:8px}
+  .hero .grid{display:grid;grid-template-columns:repeat(3,22px);gap:4px;flex:none}
+  .hero .grid i{width:22px;height:22px;border-radius:5px;background:var(--soft);border:1px solid var(--line)}
+  .hero .grid i.on{background:var(--accent);border-color:var(--accent)}
+  h1{font-family:"Noto Serif KR",serif;font-weight:900;font-size:2rem;line-height:1.3;margin:0;letter-spacing:-.01em}
+  h2{font-family:"Noto Serif KR",serif;font-size:1.45rem;margin:2.6em 0 .7em;padding-bottom:.35em;border-bottom:2px solid var(--accent)}
+  h3{font-size:1.1rem;margin:1.8em 0 .5em;color:var(--accent2)}
+  a{color:var(--accent)}
+  blockquote{margin:1em 0;padding:.8em 1.1em;background:var(--soft);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;color:var(--muted)}
+  blockquote p{margin:0}
+  hr{border:none;border-top:1px dashed var(--line);margin:2em 0}
+  .table-wrap{overflow-x:auto;margin:1em 0}
+  table{border-collapse:collapse;width:100%;font-size:.93rem}
+  th,td{border:1px solid var(--line);padding:.55em .75em;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:700}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);padding:.1em .35em;border-radius:5px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:1em 1.2em;overflow-x:auto;line-height:1.5}
+  pre code{background:none;padding:0;font-size:.84rem}
+  strong{color:var(--accent)}
+  ul,ol{padding-left:1.4em}
+  nav#TOC{background:var(--soft);border-radius:12px;padding:1em 1.4em;margin:1.5em 0;font-size:.93rem}
+  nav#TOC ul{margin:.2em 0;padding-left:1.1em}
+  nav#TOC>ul{columns:2;column-gap:2em}
+  nav#TOC a{color:var(--ink);text-decoration:none}
+  nav#TOC a:hover{color:var(--accent)}
+  .toolbar{position:fixed;right:18px;bottom:18px;display:flex;gap:8px}
+  .toolbar button{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:.5em .9em;border-radius:999px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+  @media (max-width:700px){main{margin:0;border-radius:0;border:none;padding:28px 16px}h1{font-size:1.5rem}nav#TOC>ul{columns:1}.hero .grid{display:none}}
+  @media print{body{background:#fff}main{box-shadow:none;border:none;margin:0;max-width:none}.toolbar{display:none}h2{break-after:avoid}pre,table{break-inside:avoid}}
+  </style>
+</head>
+<body>
+<main>
+<div class="hero"><div class="grid" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i></div><div>
+<h1 id="top">한 줄 독서 (Read a Line) — 제품 요구사항 문서(PRD)</h1></div></div>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#1-개요">1. 개요</a></li>
+<li><a href="#2-대상-사용자">2. 대상 사용자</a></li>
+<li><a href="#3-핵심-가치">3. 핵심 가치</a></li>
+<li><a href="#4-사용자-시나리오">4. 사용자 시나리오</a></li>
+<li><a href="#5-기능-요구사항">5. 기능 요구사항</a></li>
+<li><a href="#6-화면-구성">6. 화면 구성</a></li>
+<li><a href="#7-데이터-저장-구조-supabase-delicious-library-프로젝트-공유">7. 데이터 저장 구조 (Supabase · Delicious Library 프로젝트 공유)</a></li>
+<li><a href="#8-핵심-로직">8. 핵심 로직</a></li>
+<li><a href="#9-미션-라이브러리-초기-44개">9. 미션 라이브러리 (초기 44개)</a></li>
+<li><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></li>
+<li><a href="#11-기술-설계">11. 기술 설계</a></li>
+<li><a href="#12-개발-일정-바이브-코딩-단계별">12. 개발 일정 (바이브 코딩 단계별)</a></li>
+<li><a href="#13-성공-지표">13. 성공 지표</a></li>
+<li><a href="#14-위험-요소와-대응">14. 위험 요소와 대응</a></li>
+<li><a href="#15-향후-확장-v2-이후">15. 향후 확장 (v2 이후)</a></li>
+<li><a href="#16-프로젝트-폴더-구조와-문서-관리">16. 프로젝트 폴더 구조와 문서 관리</a></li>
+<li><a href="#부록-a-앱-이름-후보">부록 A. 앱 이름 후보</a></li>
+</ul>
+</nav>
+<blockquote>
+<p>독서 챌린지 &amp; 북 빙고 웹앱 · 앱 이름 확정: <strong>한 줄 독서 (Read a Line)</strong> — 빙고 "한 줄"을 완성하는 재미와 책 "한 줄"을 읽는 꾸준함</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>문서 버전</td>
+<td>v2.3 (빙고판 관리·삭제, 새 빙고판 만들기, 앱 안 뒤로 가기, 앱 제목 링크, 고풍 서재 글꼴을 모두 고운돋움으로)</td>
+</tr>
+<tr>
+<td>작성일</td>
+<td>2026-11-05 (v2.0 수정: 2026-11-06 · v2.1·v2.2 수정: 2026-11-11)</td>
+</tr>
+<tr>
+<td>문서 위치</td>
+<td><code>docs/PRD_한줄독서.md</code> (보기용 <code>docs/PRD_한줄독서.html</code>)</td>
+</tr>
+<tr>
+<td>작성자</td>
+<td>기획자 · Claude(초안 작성 지원)</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>검토 중</td>
+</tr>
+<tr>
+<td>형태</td>
+<td>단일 HTML 파일 웹앱 + Supabase 저장 (Delicious Library 프로젝트 공유, 로그인 공유 · 테이블 분리)</td>
+</tr>
+<tr>
+<td>사용자</td>
+<td>본인 1명 (개인 전용)</td>
+</tr>
+<tr>
+<td>난이도</td>
+<td>★★ (바이브 코딩 입문~중급)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-개요">1. 개요</h2>
+<h3 id="11-배경">1.1 배경</h3>
+<ul>
+<li>연초에 "올해 책 24권 읽기" 같은 목표를 세워도, 숫자만 있는 목표는 중간에 동기를 잃기 쉽습니다.</li>
+<li>익숙한 분야만 읽게 되는 <strong>편식 독서</strong>도 흔한 고민입니다.</li>
+<li>빙고는 규칙이 단순하고, "한 줄만 더!"라는 심리가 작동해 꾸준함을 만들기 좋은 게임 형식입니다.</li>
+</ul>
+<h3 id="12-제품-한-줄-정의">1.2 제품 한 줄 정의</h3>
+<p><strong>연간 독서 목표를 빙고판과 미션으로 바꿔, 다양한 분야의 책을 즐겁게 꾸준히 읽도록 돕는 개인용 웹앱</strong></p>
+<h3 id="13-목표">1.3 목표</h3>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>목표</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>사용자 목표</td>
+<td>① 연간 독서 목표를 끝까지 유지 ② 평소 읽지 않던 분야에 도전 ③ 친구와 함께 즐기기</td>
+</tr>
+<tr>
+<td>제품 목표</td>
+<td>① 설치 없이 파일 하나로 실행 ② 3×3·4×4·5×5 빙고판 선택 ③ 빙고 완성의 성취감 연출 ④ 목표 대비 진행 속도를 한눈에 제공 ⑤ Delicious Library 계정으로 로그인해 여러 기기에서 같은 기록 사용 ⑥ 빙고 줄 수마다 스스로 정한 보상으로 동기 부여</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-범위-밖non-goals">1.4 범위 밖(Non-goals)</h3>
+<ul>
+<li>한 줄 독서만의 별도 회원 가입·인증 시스템 (Delicious Library의 로그인을 공유)</li>
+<li>여러 사용자를 위한 기능(사용자 관리, 공개 프로필) — 개인 전용 앱</li>
+<li>Delicious Library 데이터와의 연동·통합 (같은 프로젝트를 쓰지만 데이터는 완전히 분리)</li>
+<li>실시간 친구 랭킹·소셜 피드</li>
+<li>외부 도서 API 연동(표지·ISBN 자동 검색) → 향후 확장 항목으로 분리</li>
+</ul>
+<hr />
+<h2 id="2-대상-사용자">2. 대상 사용자</h2>
+<blockquote>
+<p>실제 사용자는 <strong>본인 1명</strong>입니다. 아래 페르소나는 기능과 화면을 설계할 때 참고하는 사용 상황입니다.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>페르소나</th>
+<th>특징</th>
+<th>기대하는 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>새해 다짐형 직장인</strong> (30대)</td>
+<td>1년에 10권 남짓 읽음, 목표는 매년 세우지만 3월에 흐지부지</td>
+<td>부담 없는 작은 목표, 진행 속도 알림</td>
+</tr>
+<tr>
+<td><strong>독서 모임 운영자</strong> (40대)</td>
+<td>모임원 6~8명과 함께 연간 챌린지 진행</td>
+<td>같은 빙고판을 이미지로 공유, 각자 채우기</td>
+</tr>
+<tr>
+<td><strong>편식 독서가</strong> (20대)</td>
+<td>소설만 읽음, 다른 분야는 막막함</td>
+<td>분야별 미션 제안, 작은 판(3×3)으로 가볍게 시작</td>
+</tr>
+<tr>
+<td><strong>학부모·교사</strong></td>
+<td>아이·학생 독서 지도</td>
+<td>칸 수를 조절한 쉬운 판, 출력 가능한 이미지</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-핵심-가치">3. 핵심 가치</h2>
+<ol>
+<li><strong>게임처럼 즐겁게</strong> — 칸을 채우고 줄을 완성할 때마다 시각적 보상</li>
+<li><strong>다양하게 읽기</strong> — 미션 칸이 자연스럽게 새로운 분야로 안내</li>
+<li><strong>내 속도에 맞게</strong> — 3×3(9권)부터 5×5(25권)까지 판 크기를 직접 선택</li>
+<li><strong>가볍고 안전하게</strong> — 설치 없음, 기존 Delicious Library 계정으로 로그인, 내 기록은 RLS로 나만 접근</li>
+</ol>
+<hr />
+<h2 id="4-사용자-시나리오">4. 사용자 시나리오</h2>
+<h3 id="시나리오-a-첫-빙고판-만들기">시나리오 A — 첫 빙고판 만들기</h3>
+<ol>
+<li>사용자가 앱을 열고 Delicious Library 계정(같은 이메일)으로 로그인합니다.</li>
+<li>온보딩 화면에서 <strong>연간 목표 권수</strong>(예: 20권)와 <strong>빙고판 크기</strong>(3×3 / 4×4 / 5×5)를 선택합니다.</li>
+<li>앱이 크기에 맞게 미션을 자동 추천하고, 사용자는 원하는 칸을 바꾸거나 직접 입력합니다.</li>
+<li>"빙고판 완성"을 누르면 메인 화면에 빙고판이 표시됩니다.</li>
+</ol>
+<h3 id="시나리오-b-읽은-책-배치하기">시나리오 B — 읽은 책 배치하기</h3>
+<ol>
+<li>『사피엔스』를 다 읽은 사용자가 "책 추가"를 누르고 제목·저자·완독일·쪽수·별점을 입력합니다.</li>
+<li>앱이 해당 책과 어울리는 미션 칸(예: "500쪽 넘는 책", "번역서")을 추천합니다.</li>
+<li>사용자가 칸을 선택하면 칸이 채워지고, 줄이 완성되면 <strong>빙고 애니메이션</strong>이 재생됩니다.</li>
+</ol>
+<h3 id="시나리오-c-진행-속도-확인">시나리오 C — 진행 속도 확인</h3>
+<ol>
+<li>9월에 사용자가 진행률 화면을 엽니다.</li>
+<li>"목표 20권 중 11권(55%) · 남은 기간 17주 · <strong>2주에 1권</strong> 페이스면 달성 가능"과 같은 안내를 봅니다.</li>
+</ol>
+<h3 id="시나리오-d-친구와-공유">시나리오 D — 친구와 공유</h3>
+<ol>
+<li>독서 모임 운영자가 빈 빙고판을 <strong>이미지(PNG)</strong> 로 저장해 단톡방에 공유합니다.</li>
+<li>또는 <strong>빙고판 코드</strong>를 복사해 공유하면, 친구가 코드를 붙여 넣어 같은 판을 그대로 불러옵니다.</li>
+</ol>
+<hr />
+<h2 id="5-기능-요구사항">5. 기능 요구사항</h2>
+<p>우선순위: <strong>P0</strong> = 1차 출시 필수 · <strong>P1</strong> = 1차 출시 권장 · <strong>P2</strong> = 향후 확장</p>
+<h3 id="51-빙고판-크기-선택-p0">5.1 빙고판 크기 선택 ⭐ (P0)</h3>
+<p>사용자는 빙고판을 만들 때 크기를 직접 선택합니다.</p>
+<table>
+<thead>
+<tr>
+<th>크기</th>
+<th>칸 수</th>
+<th>가능한 빙고 줄 수</th>
+<th>중앙 무료 칸</th>
+<th>권장 대상</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3×3</strong></td>
+<td>9칸</td>
+<td>8줄 (가로 3 · 세로 3 · 대각 2)</td>
+<td>선택 가능(기본 꺼짐)</td>
+<td>입문자, 연 10권 이하, 어린이</td>
+</tr>
+<tr>
+<td><strong>4×4</strong></td>
+<td>16칸</td>
+<td>10줄 (가로 4 · 세로 4 · 대각 2)</td>
+<td>없음(중앙 칸이 없음)</td>
+<td>연 12~20권</td>
+</tr>
+<tr>
+<td><strong>5×5</strong></td>
+<td>25칸</td>
+<td>12줄 (가로 5 · 세로 5 · 대각 2)</td>
+<td>선택 가능(기본 켜짐)</td>
+<td>연 20권 이상, 독서 모임</td>
+</tr>
+<tr>
+<td>6×6 (P2)</td>
+<td>36칸</td>
+<td>14줄</td>
+<td>없음</td>
+<td>다독가</td>
+</tr>
+</tbody>
+</table>
+<p><strong>세부 요구사항</strong>
+- FR-1.1 온보딩과 "새 빙고판 만들기" 화면에서 크기를 카드형 버튼으로 선택합니다. 각 카드에는 미리보기 격자와 "9권 / 16권 / 25권" 안내가 표시됩니다.
+- FR-1.2 연간 목표 권수를 입력하면 어울리는 크기를 <strong>추천 배지</strong>로 표시합니다. (목표 ≤ 10권 → 3×3, 11~20권 → 4×4, 21권 이상 → 5×5)
+- FR-1.3 홀수 크기(3×3, 5×5)에서는 <strong>중앙 무료 칸(FREE)</strong> 을 켜고 끌 수 있습니다. 무료 칸은 처음부터 채워진 상태로 간주합니다.
+- FR-1.4 빙고 판정 로직은 크기 <code>N</code>을 매개변수로 받아 가로 <code>N</code>줄 · 세로 <code>N</code>줄 · 대각선 2줄, 총 <code>2N + 2</code>줄을 검사합니다. 크기별로 별도 코드를 만들지 않습니다.
+- FR-1.5 이미 책이 배치된 판의 크기를 바꾸려 하면 경고를 띄우고, 다음 중 하나를 고르게 합니다.
+  - <strong>새 판으로 시작</strong>: 기존 판은 보관함에 남기고 새 크기의 빈 판을 만듭니다.
+  - <strong>책 옮기기</strong>: 기존에 배치된 책을 새 판의 같은 미션 칸으로 옮기고, 미션이 없어진 책은 "미배치 책" 목록으로 보냅니다.
+- FR-1.6 화면 너비에 따라 칸 크기를 자동 조절해, 5×5도 휴대폰(360px)에서 가로 스크롤 없이 보이게 합니다. 칸이 작아지면 미션 글자는 2줄까지 말줄임 처리하고 탭하면 전체 내용을 보여 줍니다.</p>
+<h3 id="52-미션-칸-구성-p0">5.2 미션 칸 구성 (P0)</h3>
+<ul>
+<li>FR-2.1 기본 <strong>미션 라이브러리</strong>(40개 이상, 9장 참고)에서 선택한 크기만큼 미션을 무작위·분야 균형 있게 자동 추천합니다.</li>
+<li>FR-2.2 "다시 섞기" 버튼으로 전체 또는 칸 하나만 다시 추천받을 수 있습니다.</li>
+<li>FR-2.3 칸을 눌러 미션 문구를 직접 수정하거나 라이브러리에서 고를 수 있습니다.</li>
+<li>FR-2.4 칸을 끌어서(드래그) 위치를 바꿀 수 있습니다. (모바일은 길게 누른 뒤 이동) — P1, v2.1 구현</li>
+<li>칸(미션 + 놓인 책)을 통째로 다른 칸과 맞바꿉니다. 가운데 FREE 칸은 옮길 수 없고, 다른 칸을 FREE 칸에 놓을 수도 없습니다.</li>
+<li>마우스는 6px 이상 끌면 시작, 터치는 0.42초 길게 누르면 시작(그 전에 10px 넘게 움직이면 스크롤로 처리)합니다.</li>
+<li>옮긴 결과로 새 줄이 완성되면 빙고 연출과 보상 판정을 똑같이 합니다.</li>
+<li>FR-2.5 같은 미션이 한 판에 중복되지 않도록 경고합니다.</li>
+<li>FR-2.6 난이도 옵션(쉬움 / 보통 / 도전)에 따라 추천 미션 구성을 달리합니다. — P1</li>
+</ul>
+<h3 id="53-책-기록과-칸-배치-p0">5.3 책 기록과 칸 배치 (P0)</h3>
+<ul>
+<li>FR-3.1 책 정보: 제목(필수), 저자, 완독일(기본값: 오늘), 쪽수, 별점(1~5), 한 줄 메모, 태그(분야)</li>
+<li>FR-3.2 책 저장 후 "어느 칸에 놓을까요?" 단계에서 빈 칸 목록을 보여 줍니다. 쪽수·태그로 맞는 미션을 추천합니다. (예: 쪽수 ≥ 500 → "500쪽 넘는 책")</li>
+<li>FR-3.3 한 권은 한 칸에만 배치합니다(규칙 엄격 모드). 설정에서 "한 권으로 여러 칸 인정"을 켤 수 있습니다. — P1</li>
+<li>FR-3.4 칸에 배치하지 않은 책도 연간 진행률에는 포함됩니다.</li>
+<li>FR-3.5 채워진 칸에는 책 제목과 체크 표시가 나타나고, 누르면 책 상세(메모·별점) 확인, 배치 해제, 다른 칸으로 이동을 할 수 있습니다.</li>
+</ul>
+<h3 id="54-빙고-판정과-애니메이션-p0">5.4 빙고 판정과 애니메이션 (P0)</h3>
+<ul>
+<li>FR-4.1 칸이 채워질 때마다 모든 줄을 검사하고, 새로 완성된 줄만 애니메이션을 재생합니다.</li>
+<li>FR-4.2 줄 완성 연출: 해당 줄 칸이 차례로 빛나는 효과(약 0.6초) + 줄 위에 선 긋기 + "BINGO!" 배지 + 색종이(confetti) 효과</li>
+<li>FR-4.3 <strong>모든 칸 완성(블랙아웃)</strong> 시 특별 축하 화면과 기념 이미지 저장 버튼을 제공합니다.</li>
+<li>FR-4.4 완성된 줄 수를 "빙고 3 / 12"처럼 상단에 표시합니다.</li>
+<li>FR-4.5 운영체제의 "동작 줄이기(prefers-reduced-motion)" 설정을 따르며, 앱 설정에서도 애니메이션을 끌 수 있습니다.</li>
+<li>FR-4.6 효과음은 기본 꺼짐, 설정에서 켤 수 있습니다. — P1, v2.1 구현</li>
+<li>소리 파일 없이 Web Audio로 직접 합성합니다: 책 놓기 · 칸 옮기기 · 빙고 · 블랙아웃 · 보상.</li>
+<li>음색은 테마에 맞춥니다(고풍 서재 삼각파, 빙고 팝 사각파, 모던 마일스톤 사인파). 설정값은 <code>settings.sound</code>에 저장합니다.</li>
+</ul>
+<h3 id="55-연간-목표와-진행-속도-p0">5.5 연간 목표와 진행 속도 (P0)</h3>
+<ul>
+<li>FR-5.1 연간 목표 권수와 기간(기본: 1월 1일~12월 31일, 사용자 지정 가능)을 설정합니다.</li>
+<li>FR-5.2 진행률 카드에 다음을 표시합니다.</li>
+<li>읽은 권수 / 목표 권수, 진행률(%) 원형 그래프</li>
+<li>경과 기간 비율 대비 진행률 비교 (예: "기간 70% 경과, 독서 55% 달성 → 조금 늦어요")</li>
+<li><strong>필요 속도</strong>: 남은 권수를 남은 기간으로 나눈 값 ("주 0.65권 ≈ 11일에 1권")</li>
+<li>현재 속도 유지 시 연말 예상 권수</li>
+<li>FR-5.3 상태 문구는 3단계로 구분합니다: 🟢 순항 중 / 🟡 조금 늦어요 / 🔴 속도를 올려요</li>
+<li>FR-5.4 월별 완독 권수 막대그래프 — P1</li>
+<li>FR-5.5 빙고 목표와 권수 목표를 분리해 관리합니다. (예: 목표는 30권, 빙고판은 4×4)</li>
+</ul>
+<h3 id="56-공유-p0-이미지-p1-코드">5.6 공유 (P0 이미지 / P1 코드)</h3>
+<ul>
+<li>FR-6.1 <strong>이미지 저장</strong>: Canvas로 빙고판을 PNG(1080×1350, SNS 세로 비율)로 그립니다. 앱 이름, 연도, 닉네임, 빙고 수를 함께 넣습니다.</li>
+<li>FR-6.2 이미지 종류: ① 빈 판(친구에게 같은 미션 공유용) ② 내 진행 판(채운 칸과 책 제목 포함)</li>
+<li>FR-6.3 모바일에서는 Web Share API로 바로 공유하고, 지원하지 않으면 파일로 내려받습니다.</li>
+<li>FR-6.4 <strong>빙고판 코드</strong>: 크기·미션 목록을 압축한 문자열(또는 URL 해시)로 복사하고, 친구는 붙여 넣기만 하면 같은 판을 불러옵니다. — P1</li>
+</ul>
+<h3 id="57-데이터-관리-p0">5.7 데이터 관리 (P0)</h3>
+<ul>
+<li>FR-7.1 모든 데이터는 Supabase(<code>read_a_line</code> 스키마)에 자동 저장되고, localStorage에는 캐시로 함께 저장됩니다. (7장)</li>
+<li>FR-7.2 <strong>JSON 백업 내보내기 / 가져오기</strong>로 기기 이동과 브라우저 초기화에 대비합니다.</li>
+<li>FR-7.3 연도별 빙고판 보관함: 지난해 판을 읽기 전용으로 다시 볼 수 있습니다. — P1</li>
+<li>FR-7.4 전체 초기화 기능(두 번 확인)</li>
+</ul>
+<h3 id="58-로그인과-동기화-p0">5.8 로그인과 동기화 (P0)</h3>
+<ul>
+<li>FR-8.1 첫 화면에서 로그인합니다. Delicious Library와 같은 계정·같은 로그인 방식을 쓰며, <strong>회원 가입 버튼은 두지 않습니다.</strong></li>
+<li>FR-8.2 로그인 상태를 유지하고, 설정 화면에 로그인한 이메일과 로그아웃 버튼을 표시합니다.</li>
+<li>FR-8.3 사이드바(데스크톱)·상단 바(모바일)에 동기화 상태(저장됨 · 저장 중 · 오프라인)를 작게 표시합니다.</li>
+<li>FR-8.4 로그인 전이거나 오프라인이면 마지막 캐시를 보여 주고, 변경 내용은 대기열에 쌓았다가 연결되면 저장합니다.</li>
+<li>FR-8.5 첫 로그인 때 이 기기에 로그인 전 기록이 있으면 "이 기기 기록 올리기"를 한 번 제안합니다.</li>
+<li>FR-8.6 로그인 없이 "샘플 데이터로 둘러보기"(데모 모드)를 쓸 수 있으며, 이때는 아무것도 저장하지 않습니다. 로그인 후 첫 화면(온보딩)의 둘러보기도 같은 데모 모드이며, 화면 위 안내 띠의 "둘러보기 끝내기"로 빠져나옵니다.</li>
+<li>FR-8.7 로그아웃은 이 기기에서만 합니다(<code>signOut({ scope: 'local' })</code>). Delicious Library 등 다른 기기·앱의 로그인은 유지됩니다. 로그아웃하면 이 기기의 캐시를 지우고, 저장되지 않은 변경이 있으면 먼저 경고합니다.</li>
+</ul>
+<h3 id="59-빙고-보상-p1-v21-추가">5.9 빙고 보상 (P1, v2.1 추가)</h3>
+<p>빙고 줄을 완성할 때마다 스스로에게 줄 보상을 미리 정해 두는 기능입니다. 예: 빙고 1줄 — 좋아하는 디저트 사 먹기, 빙고 3줄 — 여행 가기.</p>
+<ul>
+<li>FR-9.1 보상은 <strong>연도별</strong>로 관리합니다. "그해 빙고판에서 N줄 완성"이 조건이며, N은 1부터 판의 최대 줄 수(3×3 8줄 · 4×4 10줄 · 5×5 12줄)까지 고릅니다. 최대 줄 수는 "모든 칸(블랙아웃)"과 같습니다.</li>
+<li>FR-9.2 보상 설정 창에서 보상을 추가·수정·삭제합니다(보상 내용 최대 60자). 같은 줄 수에 보상을 여러 개 둘 수 있습니다.</li>
+<li>FR-9.3 상태는 3가지입니다: <strong>대기</strong>(N줄 더 완성하면 받아요) → <strong>달성</strong>(받았어요 버튼 표시) → <strong>받음</strong>(받은 날짜 표시, 취소선).</li>
+<li>FR-9.4 칸을 채우거나 옮겨서 조건을 처음 넘으면, 빙고 연출 뒤에 "REWARD!" 축하 창을 띄웁니다. 블랙아웃과 함께 달성하면 한 창에 같이 보여 줍니다. 창에서 "보상 받았어요"를 누르면 받음으로 바뀝니다.</li>
+<li>FR-9.5 한 번 달성한 보상은 나중에 줄 수가 줄어도(책을 빼거나 옮김) 달성 상태를 유지합니다. 저장할 때 이미 조건을 넘은 보상은 축하 없이 바로 달성으로 표시합니다. 받기 전에 줄 수를 바꾸면 달성 여부를 다시 판정합니다.</li>
+<li>FR-9.6 빙고판 화면 오른쪽(모바일은 아래) "빙고 보상" 카드, 진행률 화면 빙고 현황의 "다음 보상까지 N줄", 설정 화면의 "보상 설정" 버튼으로 접근합니다.</li>
+<li>FR-9.7 판 크기를 바꿔 지금 판의 최대 줄 수보다 큰 보상이 생기면 "○×○ 판은 최대 ○줄이에요"라고 안내합니다.</li>
+</ul>
+<h3 id="510-빙고판-관리와-화면-이동-p0-v22-추가">5.10 빙고판 관리와 화면 이동 (P0, v2.2 추가)</h3>
+<ul>
+<li>FR-10.1 메뉴에 <strong>판 관리</strong>를 추가합니다(빙고판 · 책장 · 진행률 · 판 관리 · 설정). 만든 빙고판을 모두 카드로 보여 주고, 지금 쓰는 판을 맨 앞에 표시합니다.</li>
+<li>FR-10.2 <strong>이 판 쓰기</strong>: 다른 판을 지금 쓰는 판으로 바꿉니다(지금 쓰는 판은 언제나 하나이며, 나머지는 보관 상태).</li>
+<li>FR-10.3 <strong>삭제</strong>: 확인 창을 거쳐 판을 지웁니다. 판에 놓였던 책은 책장에 남고 미배치 책이 됩니다. 지금 쓰는 판을 지우면 가장 최근에 만든 다른 판으로 바꾸고, 마지막 판을 지우면 새 빙고판 만들기 화면으로 갑니다(책·보상·목표는 그대로).</li>
+<li>FR-10.4 <strong>새 빙고판 만들기</strong>: 처음 빙고를 만드는 화면(온보딩)을 그대로 다시 씁니다. 테마·닉네임·목표 권수·크기를 지금 값으로 미리 채우고, 빙고판 이름을 입력할 수 있으며, "돌아가기"로 이전 화면에 돌아갑니다. 만들면 새 판이 지금 쓰는 판이 됩니다.</li>
+<li>FR-10.5 화면을 옮길 때마다 브라우저 기록에 남겨, <strong>뒤로 가기·앞으로 가기</strong>가 앱 안의 이전·다음 화면으로 이동합니다(열린 대화상자는 닫힘). 새 빙고판을 만든 직후의 뒤로 가기는 만들기 화면이 아닌 그 전 화면으로 갑니다.</li>
+<li>FR-10.6 사이드바·상단 바의 <strong>앱 제목(아이콘 · 한 줄 독서 · Read a Line)</strong> 을 누르면 빙고판 화면으로 갑니다.</li>
+<li>FR-10.7 설정 화면의 "빙고판" 카드에서도 판 관리로 갈 수 있습니다(기존 "지난 빙고판 보관함" 목록을 대신함).</li>
+</ul>
+<h3 id="511-기타-p1p2">5.11 기타 (P1~P2)</h3>
+<ul>
+<li>다크 모드(시스템 설정 연동) — P1</li>
+<li>칸 테마 색상 5종 선택 — P1</li>
+<li>6×6 빙고판, 직사각형 판 — P2</li>
+<li>도서 검색 API로 표지·쪽수 자동 입력 — P2</li>
+<li>PWA(홈 화면 추가, 오프라인 캐시) — P2</li>
+</ul>
+<hr />
+<h2 id="6-화면-구성">6. 화면 구성</h2>
+<h3 id="61-화면-목록">6.1 화면 목록</h3>
+<table>
+<thead>
+<tr>
+<th>화면</th>
+<th>주요 요소</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① 온보딩</td>
+<td>연간 목표 입력 → 빙고판 크기 선택(3×3/4×4/5×5) → 미션 확인·수정</td>
+</tr>
+<tr>
+<td>② 홈(빙고판)</td>
+<td>상단 진행 요약, 빙고판, 빙고 수, "책 추가" 버튼</td>
+</tr>
+<tr>
+<td>③ 책 추가/편집</td>
+<td>책 정보 입력 → 칸 선택 단계</td>
+</tr>
+<tr>
+<td>④ 내 책장</td>
+<td>읽은 책 목록(배치됨/미배치 필터), 정렬, 검색</td>
+</tr>
+<tr>
+<td>⑤ 진행률</td>
+<td>목표 대비 진행률, 필요 속도, 월별 그래프</td>
+</tr>
+<tr>
+<td>⑥ 공유</td>
+<td>이미지 미리보기·저장, 빙고판 코드 복사/불러오기</td>
+</tr>
+<tr>
+<td>⑦ 설정</td>
+<td>테마, 프로필과 목표, 빙고판(이름·무료 칸), 화면(애니메이션·효과음), 빙고 보상, 계정(이메일·저장 상태·로그아웃), 데이터(백업/복원·초기화)</td>
+</tr>
+<tr>
+<td>⑩ 판 관리</td>
+<td>빙고판 카드 목록(미리보기·지금 쓰는 판 표시), 이 판 쓰기, 삭제, 새 빙고판 만들기</td>
+</tr>
+<tr>
+<td>⑪ 새 빙고판 만들기</td>
+<td>온보딩과 같은 화면, 지금 값으로 미리 채움, 빙고판 이름, 돌아가기</td>
+</tr>
+<tr>
+<td>⑨ 보상 설정</td>
+<td>줄 수(1~최대)와 보상 내용 목록, 보상 추가·삭제, 달성·받음 표시</td>
+</tr>
+<tr>
+<td>⑧ 로그인</td>
+<td>이메일·비밀번호(또는 매직 링크) 입력, 샘플 둘러보기 — 가입 버튼 없음</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-홈-화면-와이어프레임-44-예시">6.2 홈 화면 와이어프레임 (4×4 예시)</h3>
+<pre><code>┌──────────────────────────────────┐
+│  한 줄 독서              ⚙️  📤  │
+│  2026 · 11권 / 20권  ████░░ 55%  │
+│  🟡 조금 늦어요 · 11일에 1권 필요   │
+├──────────────────────────────────┤
+│  [3×3] [4×4●] [5×5]   빙고 2/10  │
+│ ┌──────┬──────┬──────┬──────┐    │
+│ │500쪽+│번역서│ 시집 │신간  │    │
+│ │ ✅사피│ ✅   │      │      │    │
+│ ├──────┼──────┼──────┼──────┤    │
+│ │과학  │여행  │ 고전 │만화  │    │
+│ │ ✅   │ ✅   │      │      │    │
+│ ├──────┼──────┼──────┼──────┤    │
+│ │ ...  │ ...  │ ...  │ ...  │    │
+│ └──────┴──────┴──────┴──────┘    │
+│                                  │
+│          [ + 읽은 책 추가 ]        │
+├──────────────────────────────────┤
+│  🏠 빙고판   📚 책장   📈 진행률   │
+└──────────────────────────────────┘
+</code></pre>
+<blockquote>
+<p>상단의 크기 표시는 현재 판 크기를 보여 주는 용도이며, 누르면 FR-1.5의 크기 변경 확인 창이 열립니다.</p>
+</blockquote>
+<h3 id="63-디자인-방향">6.3 디자인 방향</h3>
+<ul>
+<li>콘셉트: <strong>"따뜻한 서재 + 경쾌한 게임"</strong> — 종이 질감의 아이보리 배경, 책등을 닮은 칸 색상, 빙고 순간에는 선명한 강조색</li>
+<li>테마별 색·글꼴·컴포넌트 규칙은 <strong><code>design/DESIGN.md</code></strong> 를 기준으로 합니다.</li>
+<li>칸 상태 3가지: 빈 칸(점선 테두리) / 채운 칸(색 채움 + 체크) / 빙고 줄(빛나는 테두리)</li>
+<li>터치 영역 최소 44×44px (5×5 휴대폰 화면에서도 확보)</li>
+</ul>
+<h3 id="64-테마-시스템-p1">6.4 테마 시스템 (P1)</h3>
+<p>디자인 시안 3종을 모두 구현하고, 설정에서 테마를 고를 수 있게 합니다. <strong>테마는 겉모습만 바꾸고 기능·화면 구조·데이터는 똑같이 유지</strong>합니다.</p>
+<table>
+<thead>
+<tr>
+<th>테마</th>
+<th>콘셉트</th>
+<th>색상</th>
+<th>글꼴</th>
+<th>빙고 칸 표현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A 고풍 서재</strong> (Library Classic)</td>
+<td>오래된 서재와 도서관, 가죽 장정과 황동 장식</td>
+<td>짙은 녹색 <code>#24412F</code> · 버건디 <code>#6E2230</code> · 황동 <code>#C9A35C</code> · 양피지 <code>#EFE5CF</code></td>
+<td>고운돋움(제목·본문·숫자, v2.3에서 나눔명조·고운바탕 대신) · Cormorant Garamond(영문 장식)</td>
+<td>빈 칸은 점선 카드, 채운 칸은 녹색 장정, 빙고 줄은 버건디 + 황동 테두리</td>
+</tr>
+<tr>
+<td><strong>B 빙고 팝</strong> (Bingo Pop)</td>
+<td>빙고 게임장, 빙고 공과 도장</td>
+<td>코랄 <code>#FF6B5B</code> · 옐로 <code>#FFD84D</code> · 민트 <code>#4FD1B0</code> · 크림 <code>#FFF4E2</code> · 잉크 <code>#2B2433</code></td>
+<td>주아 · 고운돋움 · Fredoka</td>
+<td>두꺼운 테두리와 그림자의 말랑한 칸, 채운 칸은 노랑, 빙고 줄은 민트</td>
+</tr>
+<tr>
+<td><strong>C 모던 마일스톤</strong> (Modern Milestone)</td>
+<td>꾸준함이 쌓여 목표에 닿는 세련된 대시보드</td>
+<td>잉크 <code>#121417</code> · 블루 <code>#3550E6</code> · 웜 그레이 <code>#F4F3EF</code></td>
+<td>IBM Plex Sans KR · Inter Tight</td>
+<td>얇은 선의 미니멀 칸, 채운 칸은 검정, 빙고 줄은 블루</td>
+</tr>
+</tbody>
+</table>
+<p><strong>테마 간 공통 규칙(기능 동일성)</strong>
+- 모든 테마에서 같은 화면 구성: 상단 진행 요약 → 빙고판 크기 선택(3×3/4×4/5×5) → 빙고 수 → 빙고판 → "읽은 책 추가" 버튼 → 하단 메뉴 5개(빙고판·책장·진행률·설정)
+- 칸 상태 4가지(빈 칸 / 채운 칸 / 빙고 줄 / 무료 칸)를 모든 테마에서 같은 의미로 표현하고, 색 외에 책 제목·테두리로도 구분
+- 진행률 화면도 같은 정보(원형 달성률, 기간 경과 대비 진행, 필요 속도·남은 기간·연말 예상, 월별 완독, 빙고 현황)를 제공하며, 그래프 모양만 테마에 맞게 바꿈 (A 막대, B 빙고 공 쌓기, C 누적 선 그래프)
+- 구현: 색·글꼴·모서리·그림자를 CSS 변수(<code>--bg</code>, <code>--ink</code>, <code>--cell-filled</code>, <code>--cell-bingo</code>, <code>--radius</code> 등)로 정의하고, <code>&lt;html data-theme="library|pop|modern"&gt;</code> 값만 바꿔 전환
+- 테마 선택은 <code>profile.theme</code>에 저장하고, 공유 이미지(Canvas)도 현재 테마 색으로 그림
+- 모든 테마의 글자 명도 대비 4.5:1 이상 유지</p>
+<h3 id="65-데스크톱-반응형-레이아웃-p0">6.5 데스크톱 반응형 레이아웃 (P0)</h3>
+<p>기준 화면은 16:10 <strong>1440×900</strong>이며, 화면 너비 1024px 이상에서 데스크톱 레이아웃으로 바뀝니다. 콘텐츠를 가운데에 좁게 모으지 않고 <strong>화면 전체 너비를 사용</strong>합니다.</p>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>데스크톱 (≥1024px)</th>
+<th>모바일 (&lt;1024px)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>내비게이션</td>
+<td>왼쪽 고정 사이드바(256px): 브랜드(누르면 빙고판), 메뉴 5개, 테마 빠른 전환, 연간 진행 요약</td>
+<td>상단 바 + 하단 탭 메뉴 5개</td>
+</tr>
+<tr>
+<td>빙고판 화면</td>
+<td>2단: 왼쪽은 화면 높이에 맞춘 큰 빙고판(1440×900 기준 약 700px), 오른쪽은 진행 요약·필요 속도·빙고 현황·미배치 책·최근 읽은 책 패널(남는 너비를 모두 사용, 넓은 화면에서는 2열)</td>
+<td>1단: 진행 요약 → 크기 선택 → 빙고판 → 책 추가 버튼 → 보조 카드</td>
+</tr>
+<tr>
+<td>책장</td>
+<td>화면 너비에 따라 3~5열 책 카드 그리드</td>
+<td>1열 카드</td>
+</tr>
+<tr>
+<td>진행률</td>
+<td>12열 그리드 대시보드(달성률·기간 비교·필요 속도 / 월별 그래프·빙고 현황·올해의 기록)</td>
+<td>카드 세로 나열</td>
+</tr>
+<tr>
+<td>설정</td>
+<td>2열 카드(테마는 전체 너비)</td>
+<td>1열</td>
+</tr>
+<tr>
+<td>첫 화면(온보딩)</td>
+<td>좌우 분할: 왼쪽 소개와 빙고판 그림, 오른쪽 설정 양식</td>
+<td>양식만 표시</td>
+</tr>
+<tr>
+<td>대화상자</td>
+<td>화면 가운데 창(책 추가는 입력 양식과 칸 선택판을 좌우로 배치)</td>
+<td>아래에서 올라오는 시트</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>빙고판 칸 글자 크기는 컨테이너 쿼리 단위(<code>cqw</code>)와 판 크기(<code>--n</code>)로 자동 조절합니다.</li>
+<li>360px 휴대폰부터 1920px 이상 모니터까지 가로 스크롤이 생기지 않아야 합니다.</li>
+</ul>
+<h3 id="66-구현-현황">6.6 구현 현황</h3>
+<ul>
+<li>v1 구현 파일: <code>index.html</code>(테마 선택형, localStorage 저장). 디자인 시안은 <code>design/시안_고풍서재.html</code>, <code>design/시안_빙고팝.html</code>, <code>design/시안_모던마일스톤.html</code>이며, 테마마다 데스크톱(1440×900)과 스마트폰(390×844)의 빙고판·진행률·책장·설정 화면을 실제 앱으로 띄워 보여 줍니다.</li>
+<li>구현 범위: 온보딩(테마·목표·판 크기·무료 칸), 샘플 데이터, 3×3/4×4/5×5 빙고판과 크기 변경(책 옮기기·새 판), 칸별 책 배치·미션 편집·빈 칸 미션 섞기, 빙고 판정(2N+2줄)과 줄 긋기·BINGO 연출·색종이·블랙아웃 축하, 책장(검색·필터·정렬), 진행률 대시보드, 공유 이미지(PNG 1080×1350)와 빙고판 코드, JSON 백업·복원, 전체 초기화(두 번 확인), 애니메이션 끄기.</li>
+<li>v2 구현(2026-11-11): Supabase 저장·로그인(5.8절, 7장), 동기화 상태 표시, 첫 로그인 기록 올리기, 데모 모드, 칸 끌어서 옮기기(FR-2.4), 효과음(FR-4.6), 빙고 보상(5.9절). 시안 3종도 새 앱으로 다시 만들었습니다.</li>
+<li>다음 단계로 미룬 항목: 다크 모드, 난이도 옵션, 6×6 판, 한 권으로 여러 칸 인정(FR-3.3).</li>
+</ul>
+<hr />
+<h2 id="7-데이터-저장-구조-supabase-delicious-library-프로젝트-공유">7. 데이터 저장 구조 (Supabase · Delicious Library 프로젝트 공유)</h2>
+<h3 id="71-기본-원칙">7.1 기본 원칙</h3>
+<p>한 줄 독서는 기존 독서 앱 <strong>Delicious Library</strong>의 Supabase 프로젝트를 함께 씁니다. <strong>로그인(인증)은 공유하고, 데이터 테이블은 전용 스키마로 완전히 분리</strong>해서 두 앱이 서로 영향을 주지 않게 합니다. 사용자는 본인 1명입니다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>공유하는 것</th>
+<th>분리하는 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>프로젝트</td>
+<td>Supabase 프로젝트 「Delicious Library」(같은 URL·같은 공개 키)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>인증</td>
+<td><code>auth.users</code> 계정, 로그인 방식, 로그인 계정(같은 이메일)</td>
+<td>브라우저 세션 저장 키(<code>read-a-line-auth</code>)</td>
+</tr>
+<tr>
+<td>데이터</td>
+<td>—</td>
+<td>전용 스키마 <strong><code>read_a_line</code></strong> 의 테이블 6개</td>
+</tr>
+<tr>
+<td>권한</td>
+<td>—</td>
+<td>테이블마다 RLS 정책(본인 행만 읽기·쓰기)</td>
+</tr>
+<tr>
+<td>마이그레이션</td>
+<td>—</td>
+<td><code>supabase/migrations/*_ral_*.sql</code> 파일로 따로 관리</td>
+</tr>
+<tr>
+<td>파일 저장소</td>
+<td>—</td>
+<td>(필요해지면) 전용 버킷 <code>read-a-line</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-로그인-공유-방식">7.2 로그인 공유 방식</h3>
+<ul>
+<li>Delicious Library와 <strong>같은 계정·같은 로그인 방식</strong>(예: 이메일 + 비밀번호 또는 매직 링크)을 그대로 씁니다. 한 줄 독서에는 <strong>회원 가입 화면을 만들지 않고 로그인만</strong> 제공합니다.</li>
+<li>두 앱의 주소(도메인)가 다르면 브라우저 로그인 상태는 따로 저장되므로, 각 앱에서 같은 계정으로 한 번씩 로그인합니다.</li>
+<li>클라이언트의 세션 저장 키를 <code>read-a-line-auth</code>로 지정해, 같은 도메인에서 함께 쓰더라도 한쪽 로그아웃이 다른 쪽에 영향을 주지 않게 합니다.</li>
+<li>매직 링크·소셜 로그인을 쓰는 경우, Supabase 대시보드 <strong>Authentication → URL Configuration → Redirect URLs</strong> 에 한 줄 독서 주소만 <strong>추가</strong>합니다. <strong>Site URL과 가입 허용 여부 등 나머지 인증 설정은 Delicious Library 값을 그대로 둡니다.</strong></li>
+<li>HTML 파일을 더블클릭(<code>file://</code>)으로 열면 매직 링크·소셜 로그인 리디렉션이 동작하지 않습니다. 이 경우 <strong>이메일 + 비밀번호 로그인</strong>을 쓰거나, 정적 호스팅(예: GitHub Pages, Netlify)에 올려 고정 주소로 사용합니다.</li>
+<li>로그인 없이도 <strong>샘플 데이터 둘러보기(데모 모드, 저장 안 함)</strong> 는 쓸 수 있습니다.</li>
+</ul>
+<h3 id="73-전용-스키마와-테이블">7.3 전용 스키마와 테이블</h3>
+<p>모든 테이블은 <code>read_a_line</code> 스키마에만 만들고, Delicious Library의 <code>public</code> 스키마 테이블과는 외래 키·조인·트리거로 연결하지 않습니다. 사용자 연결은 <code>auth.users(id)</code> 하나만 참조합니다.</p>
+<table>
+<thead>
+<tr>
+<th>테이블</th>
+<th>용도</th>
+<th>주요 열</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>settings</code></td>
+<td>사용자 설정(1인 1행)</td>
+<td><code>user_id</code>(PK), <code>nickname</code>, <code>theme</code>, <code>motion</code>, <code>sound</code>, <code>active_board_id</code>, <code>updated_at</code></td>
+</tr>
+<tr>
+<td><code>goals</code></td>
+<td>연도별 목표</td>
+<td><code>id</code>, <code>user_id</code>, <code>year</code>, <code>target_books</code>, <code>start_date</code>, <code>end_date</code> — <code>(user_id, year)</code> 고유</td>
+</tr>
+<tr>
+<td><code>books</code></td>
+<td>읽은 책</td>
+<td><code>id</code>, <code>user_id</code>, <code>title</code>, <code>author</code>, <code>finished_at</code>, <code>pages</code>, <code>rating</code>, <code>memo</code>, <code>tags[]</code></td>
+</tr>
+<tr>
+<td><code>boards</code></td>
+<td>빙고판</td>
+<td><code>id</code>, <code>user_id</code>, <code>year</code>, <code>title</code>, <code>size(3·4·5)</code>, <code>free_center</code>, <code>completed_lines[]</code>, <code>archived</code></td>
+</tr>
+<tr>
+<td><code>board_cells</code></td>
+<td>빙고판 칸</td>
+<td><code>(board_id, idx)</code> PK, <code>user_id</code>, <code>mission</code>, <code>is_free</code>, <code>book_id</code></td>
+</tr>
+<tr>
+<td><code>rewards</code></td>
+<td>빙고 보상(v2.1)</td>
+<td><code>id</code>, <code>user_id</code>, <code>year</code>, <code>lines(1~12)</code>, <code>title(1~60자)</code>, <code>achieved_at</code>, <code>claimed_at</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>마이그레이션 파일: <code>20261106000000_ral_init.sql</code>(아래 SQL) · <code>20261111000000_ral_rewards_sound.sql</code>(<code>rewards</code> 테이블과 <code>settings.sound</code>) · <code>20261111000100_ral_cells_user_idx.sql</code>(<code>board_cells.user_id</code> 인덱스, Supabase 성능 권고 반영). 2026-11-11에 Delicious Library 프로젝트에 모두 적용했습니다.</p>
+</blockquote>
+<pre><code class="language-sql">-- supabase/migrations/20261106000000_ral_init.sql
+create schema if not exists read_a_line;
+grant usage on schema read_a_line to authenticated;
+
+create table read_a_line.settings (
+  user_id uuid primary key default auth.uid() references auth.users(id) on delete cascade,
+  nickname text,
+  theme text not null default 'library' check (theme in ('library','pop','modern')),
+  motion boolean not null default true,
+  active_board_id uuid,
+  updated_at timestamptz not null default now()
+);
+
+create table read_a_line.goals (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  year int not null,
+  target_books int not null check (target_books &gt; 0),
+  start_date date not null,
+  end_date date not null check (end_date &gt;= start_date),
+  updated_at timestamptz not null default now(),
+  unique (user_id, year)
+);
+
+create table read_a_line.books (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  title text not null,
+  author text,
+  finished_at date not null,
+  pages int check (pages &gt; 0),
+  rating smallint check (rating between 0 and 5),
+  memo text,
+  tags text[] not null default '{}',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table read_a_line.boards (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  year int not null,
+  title text not null,
+  size smallint not null check (size in (3,4,5)),
+  free_center boolean not null default false,
+  completed_lines text[] not null default '{}',
+  archived boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table read_a_line.board_cells (
+  board_id uuid not null references read_a_line.boards(id) on delete cascade,
+  idx smallint not null,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  mission text not null,
+  is_free boolean not null default false,
+  book_id uuid references read_a_line.books(id) on delete set null,
+  updated_at timestamptz not null default now(),
+  primary key (board_id, idx)
+);
+
+create index on read_a_line.books (user_id, finished_at);
+create index on read_a_line.boards (user_id, year);
+create index on read_a_line.board_cells (book_id);
+</code></pre>
+<h3 id="74-권한rls과-api-노출">7.4 권한(RLS)과 API 노출</h3>
+<pre><code class="language-sql">-- 모든 테이블: RLS 켜기 + 본인 행만 허용
+alter table read_a_line.settings    enable row level security;
+alter table read_a_line.goals       enable row level security;
+alter table read_a_line.books       enable row level security;
+alter table read_a_line.boards      enable row level security;
+alter table read_a_line.board_cells enable row level security;
+
+create policy &quot;ral_own_rows&quot; on read_a_line.settings    for all to authenticated
+  using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+create policy &quot;ral_own_rows&quot; on read_a_line.goals       for all to authenticated
+  using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+create policy &quot;ral_own_rows&quot; on read_a_line.books       for all to authenticated
+  using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+create policy &quot;ral_own_rows&quot; on read_a_line.boards      for all to authenticated
+  using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+create policy &quot;ral_own_rows&quot; on read_a_line.board_cells for all to authenticated
+  using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+-- 로그인한 사용자에게만 권한 부여 (anon에는 부여하지 않음)
+grant select, insert, update, delete on all tables in schema read_a_line to authenticated;
+</code></pre>
+<ul>
+<li>대시보드 <strong>Project Settings → Data API → Exposed schemas</strong> 에 <code>read_a_line</code>을 <strong>추가</strong>합니다(기존 <code>public</code>, <code>graphql_public</code>, <code>bookchronicle</code>은 그대로 둠). 이 설정은 SQL·MCP로 바꿀 수 없어 대시보드에서 직접 합니다.</li>
+<li>클라이언트는 공개(anon/publishable) 키만 사용합니다. RLS가 켜져 있어 키가 HTML에 보여도 다른 사람이 데이터를 읽을 수 없습니다. <strong><code>service_role</code> 키는 앱 코드나 저장소에 절대 넣지 않습니다.</strong></li>
+</ul>
+<pre><code class="language-js">// 단일 HTML에서 CDN으로 불러오기 (버전 고정)
+// &lt;script src=&quot;https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js&quot;&gt;&lt;/script&gt;
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  db: { schema: 'read_a_line' },                         // 기본 스키마를 read_a_line으로
+  auth: { storageKey: 'read-a-line-auth', persistSession: true }
+});
+await sb.auth.signInWithPassword({ email, password });   // Delicious Library와 같은 계정
+const { data } = await sb.from('books').select('*').order('finished_at', { ascending: false });
+</code></pre>
+<h3 id="75-동기화와-로컬-캐시">7.5 동기화와 로컬 캐시</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>방식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기준 데이터</td>
+<td>Supabase <code>read_a_line</code> 스키마</td>
+</tr>
+<tr>
+<td>로컬 캐시</td>
+<td>localStorage <code>readALine:v1</code>(v1 구조 그대로) — 빠른 첫 화면과 오프라인 읽기용</td>
+</tr>
+<tr>
+<td>저장 시점</td>
+<td>변경 즉시 화면 먼저 반영(낙관적 업데이트) → Supabase에 저장</td>
+</tr>
+<tr>
+<td>실패 처리</td>
+<td>마지막으로 서버에 저장된 행을 <code>readALine:v1:synced</code>에 보관하고, 저장할 때마다 <strong>지금 상태와의 차이(바뀐 행 upsert, 사라진 행 delete)만</strong> 보냄. 오프라인·오류면 그 차이가 그대로 남아 대기열 역할을 하고, 연결되면(<code>online</code> 이벤트, 20초마다 재시도, 다음 실행) 다시 보냄</td>
+</tr>
+<tr>
+<td>보내는 순서</td>
+<td>upsert: 책 → 빙고판 → 칸 → 보상 → 목표 → 설정 / delete: 보상 → 빙고판(칸은 cascade) → 책 → 목표 → 설정</td>
+</tr>
+<tr>
+<td>캐시 주인</td>
+<td><code>readALine:v1:owner</code>에 <code>{ id, email }</code> 저장. 다른 계정으로 로그인하면 이전 계정의 캐시를 지움</td>
+</tr>
+<tr>
+<td>다른 기기 변경</td>
+<td>앱으로 돌아올 때(<code>visibilitychange</code>, 30초 간격) 보낼 변경이 없고 입력 중이 아니면 서버 기록을 다시 불러옴</td>
+</tr>
+<tr>
+<td>충돌</td>
+<td>혼자 쓰는 앱이므로 <code>updated_at</code> 기준 마지막 수정 우선</td>
+</tr>
+<tr>
+<td>첫 로그인</td>
+<td>이 기기에 로그인 전 기록이 있으면 "이 기기 기록 올리기"를 1회 제안(ID 새로 발급 후 연결). 계정에 기록이 이미 있으면 책·보상은 합치고 이 기기의 빙고판은 보관함으로 넣음. 올리지 않으면 이 기기 기록은 지움</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>새 책·빙고판·보상은 UUID(<code>crypto.randomUUID</code>)로 만듦. 백업을 불러올 때 UUID가 아닌 옛 ID는 새로 발급해 연결을 맞춤</td>
+</tr>
+<tr>
+<td>빙고 줄</td>
+<td><code>completed_lines</code>는 앱이 계산한 결과를 함께 저장(애니메이션 판정용)</td>
+</tr>
+<tr>
+<td>백업</td>
+<td>JSON 내보내기·가져오기는 계속 제공</td>
+</tr>
+</tbody>
+</table>
+<h3 id="76-delicious-library에-영향을-주지-않기-위한-규칙">7.6 Delicious Library에 영향을 주지 않기 위한 규칙</h3>
+<ul>
+<li>☐ 모든 SQL에 <code>read_a_line.</code> 스키마 이름을 붙여 작성합니다.</li>
+<li>☐ <code>public</code> 스키마와 Delicious Library 테이블·함수·뷰를 만들거나 바꾸거나 지우지 않습니다(조인·외래 키도 만들지 않음).</li>
+<li>☐ <code>auth.users</code>에 트리거를 추가하지 않습니다. <code>settings</code> 행은 첫 로그인 때 앱이 <code>upsert</code>로 만듭니다.</li>
+<li>☐ 정책·인덱스·마이그레이션 이름에 <code>ral_</code> 접두어를 붙여 출처를 구분합니다.</li>
+<li>☐ 인증 설정은 Redirect URLs <strong>추가</strong> 외에는 바꾸지 않습니다.</li>
+<li>☐ 파일 저장이 필요해지면 전용 버킷 <code>read-a-line</code>을 따로 만듭니다.</li>
+<li>☐ 한 줄 독서를 정리할 때는 <code>drop schema read_a_line cascade;</code> 한 줄로 Delicious Library에 영향 없이 제거할 수 있습니다.</li>
+<li>☐ 무료 플랜 용량·요청 한도는 두 앱이 함께 쓰므로, 책 1,000권 기준 수 MB 수준인지 분기마다 확인합니다.</li>
+</ul>
+<h3 id="77-로컬-캐시-json-구조-v1과-동일">7.7 로컬 캐시 JSON 구조 (v1과 동일)</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: 1,
+  &quot;profile&quot;: { &quot;nickname&quot;: &quot;책벌레&quot;, &quot;theme&quot;: &quot;library&quot;, &quot;motion&quot;: true, &quot;sound&quot;: false },
+  &quot;goals&quot;: { &quot;2026&quot;: { &quot;targetBooks&quot;: 24, &quot;start&quot;: &quot;2026-01-01&quot;, &quot;end&quot;: &quot;2026-12-31&quot; } },
+  &quot;boards&quot;: [{ &quot;id&quot;: &quot;…&quot;, &quot;year&quot;: 2026, &quot;title&quot;: &quot;2026 나의 북 빙고&quot;, &quot;size&quot;: 5, &quot;freeCenter&quot;: true,
+               &quot;cells&quot;: [{ &quot;mission&quot;: &quot;500쪽 넘는 책&quot;, &quot;bookId&quot;: &quot;…&quot; }, { &quot;mission&quot;: &quot;FREE&quot;, &quot;free&quot;: true }],
+               &quot;completedLines&quot;: [&quot;row-1&quot;, &quot;diag-main&quot;], &quot;archived&quot;: false }],
+  &quot;activeBoardId&quot;: &quot;…&quot;,
+  &quot;books&quot;: [{ &quot;id&quot;: &quot;…&quot;, &quot;title&quot;: &quot;사피엔스&quot;, &quot;author&quot;: &quot;유발 하라리&quot;, &quot;finishedAt&quot;: &quot;2026-01-06&quot;,
+              &quot;pages&quot;: 636, &quot;rating&quot;: 5, &quot;memo&quot;: &quot;&quot;, &quot;tags&quot;: [&quot;역사&quot;, &quot;번역서&quot;] }],
+  &quot;rewards&quot;: [{ &quot;id&quot;: &quot;…&quot;, &quot;year&quot;: 2026, &quot;lines&quot;: 3, &quot;title&quot;: &quot;여행 가기&quot;,
+                &quot;achievedAt&quot;: &quot;2026-06-02T10:00:00.000Z&quot;, &quot;claimedAt&quot;: null }]
+}
+</code></pre>
+<ul>
+<li><code>cells</code> 길이는 항상 <code>size × size</code>이며, 칸 위치는 <code>idx = 행 × size + 열</code>입니다(<code>board_cells.idx</code>와 같음).</li>
+<li>줄 식별자: <code>row-{r}</code>, <code>col-{c}</code>, <code>diag-main</code>(왼쪽 위→오른쪽 아래), <code>diag-anti</code>(오른쪽 위→왼쪽 아래)</li>
+</ul>
+<hr />
+<h2 id="8-핵심-로직">8. 핵심 로직</h2>
+<h3 id="81-빙고-판정-크기-n-공통">8.1 빙고 판정 (크기 N 공통)</h3>
+<pre><code class="language-js">function getLines(N) {
+  const lines = [];
+  for (let r = 0; r &lt; N; r++) lines.push({ id: `row-${r}`, cells: [...Array(N)].map((_, c) =&gt; r * N + c) });
+  for (let c = 0; c &lt; N; c++) lines.push({ id: `col-${c}`, cells: [...Array(N)].map((_, r) =&gt; r * N + c) });
+  lines.push({ id: 'diag-main', cells: [...Array(N)].map((_, i) =&gt; i * N + i) });
+  lines.push({ id: 'diag-anti', cells: [...Array(N)].map((_, i) =&gt; i * N + (N - 1 - i)) });
+  return lines; // 총 2N + 2줄
+}
+
+function checkBingo(board) {
+  const filled = (i) =&gt; board.cells[i].bookId || board.cells[i].missionId === 'free';
+  const done = getLines(board.size).filter(l =&gt; l.cells.every(filled)).map(l =&gt; l.id);
+  const newly = done.filter(id =&gt; !board.completedLines.includes(id));
+  board.completedLines = done;
+  return newly; // 새로 완성된 줄만 애니메이션
+}
+</code></pre>
+<h3 id="82-진행-속도-계산">8.2 진행 속도 계산</h3>
+<table>
+<thead>
+<tr>
+<th>값</th>
+<th>계산식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>남은 권수</td>
+<td><code>max(목표 − 읽은 권수, 0)</code></td>
+</tr>
+<tr>
+<td>남은 일수</td>
+<td><code>종료일 − 오늘 + 1</code></td>
+</tr>
+<tr>
+<td>필요 속도(주당)</td>
+<td><code>남은 권수 ÷ (남은 일수 ÷ 7)</code></td>
+</tr>
+<tr>
+<td>"○일에 1권"</td>
+<td><code>남은 일수 ÷ 남은 권수</code> (소수점 버림)</td>
+</tr>
+<tr>
+<td>기간 경과율</td>
+<td><code>(오늘 − 시작일 + 1) ÷ 전체 일수</code></td>
+</tr>
+<tr>
+<td>예상 연말 권수</td>
+<td><code>읽은 권수 ÷ 경과 일수 × 전체 일수</code> (반올림)</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>진행률 ≥ 경과율 → 🟢 / 경과율 − 10%p 이내 → 🟡 / 그 외 → 🔴</td>
+</tr>
+</tbody>
+</table>
+<p>예외 처리: 목표 달성 시 "🎉 목표 달성! 보너스 독서 중", 기간 종료 후에는 결과 요약만 표시합니다.</p>
+<h3 id="83-크기별-미션-추천-알고리즘">8.3 크기별 미션 추천 알고리즘</h3>
+<ol>
+<li>미션 라이브러리를 분야(카테고리)별로 묶습니다.</li>
+<li>필요한 칸 수(<code>N×N</code>, 무료 칸이 있으면 1개 제외)만큼 카테고리를 돌아가며 1개씩 무작위로 뽑습니다. → 분야 편중 방지</li>
+<li>난이도 옵션에 따라 "도전" 미션(예: 700쪽 이상, 원서) 비율을 조절합니다. (쉬움 0% · 보통 10% · 도전 25%)</li>
+<li>3×3에서는 쉬운 미션 위주로 구성합니다.</li>
+</ol>
+<hr />
+<h2 id="9-미션-라이브러리-초기-44개">9. 미션 라이브러리 (초기 44개)</h2>
+<table>
+<thead>
+<tr>
+<th>카테고리</th>
+<th>미션 예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>분량·형식</td>
+<td>500쪽 넘는 책 · 200쪽 이하 얇은 책 · 단편집 · 시집 · 그래픽노블/만화 · 오디오북 · 전자책</td>
+</tr>
+<tr>
+<td>출처·언어</td>
+<td>번역서 · 원서로 읽기 · 아시아 작가의 책 · 아프리카·남미 작가의 책 · 내가 태어나기 전에 나온 책</td>
+</tr>
+<tr>
+<td>시기</td>
+<td>올해 나온 신간 · 100년 넘은 고전 · 출간 10주년 된 책 · 내 생일 달에 읽은 책</td>
+</tr>
+<tr>
+<td>분야(인문·사회)</td>
+<td>역사 · 철학 · 심리학 · 경제·경영 · 통계 교양서 · 정치·사회 이슈</td>
+</tr>
+<tr>
+<td>분야(과학·기술)</td>
+<td>과학 교양서 · 수학 이야기 · IT·AI 관련 책 · 환경·기후</td>
+</tr>
+<tr>
+<td>분야(문학)</td>
+<td>추리·스릴러 · SF·판타지 · 로맨스 · 청소년 소설 · 한국 고전 문학</td>
+</tr>
+<tr>
+<td>생활·취미</td>
+<td>여행 에세이 · 요리·음식 · 운동·건강 · 그림·예술 · 음악</td>
+</tr>
+<tr>
+<td>경험·관계</td>
+<td>친구가 추천한 책 · 도서관에서 빌린 책 · 표지만 보고 고른 책 · 영화·드라마 원작 · 작가의 데뷔작 · 다시 읽는 책 · 독서 모임 선정 도서</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-비기능-요구사항">10. 비기능 요구사항</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>형태</td>
+<td><strong>단일 HTML 파일</strong>(HTML·CSS·JS 인라인). 로그인·저장에는 인터넷이 필요하고, 오프라인에서는 캐시로 읽기와 대기열 저장</td>
+</tr>
+<tr>
+<td>외부 의존성</td>
+<td><code>@supabase/supabase-js</code>(CDN, 버전 고정) 1개, Google Fonts. 그 외 효과는 직접 구현</td>
+</tr>
+<tr>
+<td>호환성</td>
+<td>최신 Chrome·Safari·Edge·Samsung Internet, iOS 16+·Android 10+</td>
+</tr>
+<tr>
+<td>반응형</td>
+<td>360px 휴대폰 ~ 1440px 데스크톱, 가로 스크롤 없음</td>
+</tr>
+<tr>
+<td>성능</td>
+<td>첫 화면 1초 이내, 칸 채움→애니메이션 시작 100ms 이내</td>
+</tr>
+<tr>
+<td>저장</td>
+<td>Supabase <code>read_a_line</code> 스키마(기준) + localStorage 캐시(5MB 이내). 저장 실패 시 대기열 재시도와 안내</td>
+</tr>
+<tr>
+<td>접근성</td>
+<td>키보드로 칸 이동·선택, 칸마다 <code>aria-label</code>("2행 3열, 번역서, 완료"), 명도 대비 4.5:1 이상, 색만으로 상태를 구분하지 않음(체크 아이콘 병행)</td>
+</tr>
+<tr>
+<td>개인정보·보안</td>
+<td>기록은 본인 Supabase 프로젝트에만 저장. 모든 테이블 RLS(본인 행만), 공개 키만 사용하고 <code>service_role</code> 키는 사용 금지. 공유는 사용자가 직접 이미지·코드를 내보낼 때만</td>
+</tr>
+<tr>
+<td>격리</td>
+<td>Delicious Library의 테이블·인증 설정에 영향 없음(7.6절 규칙)</td>
+</tr>
+<tr>
+<td>언어</td>
+<td>한국어 기본, 문구는 한곳(객체)에 모아 향후 영어 지원 가능하게</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-기술-설계">11. 기술 설계</h2>
+<ul>
+<li><strong>구성</strong>: <code>index.html</code> 하나에 <code>&lt;style&gt;</code>과 <code>&lt;script&gt;</code>를 포함</li>
+<li><strong>구조(바닐라 JS)</strong></li>
+<li><code>state</code> — 앱 전체 데이터(7장 스키마)</li>
+<li><code>store</code> — <code>load()</code>, <code>save()</code>(디바운스 300ms), <code>export()</code>, <code>import()</code>, <code>migrate()</code> — 로컬 캐시</li>
+<li><code>auth</code> — Supabase 로그인·로그아웃·세션 복원(<code>storageKey: read-a-line-auth</code>)</li>
+<li><code>sync</code> — Supabase 읽기·쓰기, 대기열 재시도, 첫 로그인 기록 올리기, 동기화 상태 표시</li>
+<li><code>bingo</code> — <code>getLines(N)</code>, <code>checkBingo()</code>, <code>recommendMissions(N, level)</code>, <code>resizeBoard()</code></li>
+<li><code>pace</code> — 진행 속도 계산 함수(8.2)</li>
+<li><code>render</code> — 화면별 렌더 함수, 상태 변경 시 다시 그림</li>
+<li><code>share</code> — Canvas 이미지 생성, 빙고판 코드 인코딩/디코딩</li>
+<li><code>fx</code> — 줄 하이라이트, 색종이 효과(Canvas 파티클)</li>
+<li><strong>격자 레이아웃</strong>: CSS Grid <code>grid-template-columns: repeat(var(--n), 1fr)</code>, <code>--n</code> 값만 바꿔 3×3/4×4/5×5 대응</li>
+<li><strong>칸 글자 크기</strong>: <code>clamp()</code>와 <code>--n</code> 값을 이용해 크기별 자동 조정</li>
+<li><strong>빙고판 코드</strong>: <code>JSON → encodeURIComponent → btoa</code> 기반 문자열, 앞에 버전 접두어(<code>RAL1:</code>)</li>
+<li><strong>v2.1 추가 모듈</strong>: 보상(<code>checkRewards</code>, <code>openRewards</code>, <code>openCelebrate</code>), 끌기(<code>startDrag</code>·<code>moveDrag</code>·<code>endDrag</code>·<code>swapCells</code>, Pointer Events), 효과음(<code>sfx</code>, Web Audio)</li>
+</ul>
+<hr />
+<h2 id="12-개발-일정-바이브-코딩-단계별">12. 개발 일정 (바이브 코딩 단계별)</h2>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>내용</th>
+<th>산출물</th>
+<th>예상</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>기본 뼈대: 크기 선택(3/4/5) + 빙고판 렌더링 + 칸 미션 편집</td>
+<td>크기별 판이 그려지는 HTML</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>2</td>
+<td>책 추가 → 칸 배치 → 빙고 판정(2N+2줄)</td>
+<td>판정 로직 완성</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>3</td>
+<td>localStorage 저장·불러오기, 백업/복원</td>
+<td>새로고침해도 유지</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>4</td>
+<td>빙고 애니메이션·색종이·블랙아웃 축하</td>
+<td>연출 완성</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>5</td>
+<td>연간 목표·진행 속도 화면</td>
+<td>진행률 카드</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>6</td>
+<td>이미지 공유(Canvas), 빙고판 코드</td>
+<td>PNG 저장</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>7</td>
+<td>크기 변경 시 책 옮기기, 다크 모드, 접근성 점검, 모바일 테스트</td>
+<td>v1.0</td>
+<td>1일</td>
+</tr>
+<tr>
+<td>8</td>
+<td>테마 3종(고풍 서재·빙고 팝·모던 마일스톤) CSS 변수화, 설정에서 테마 선택</td>
+<td>테마 전환</td>
+<td>1일</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>read_a_line</code> 스키마 마이그레이션, RLS, Exposed schemas 설정</td>
+<td>SQL 적용</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>10</td>
+<td>로그인 화면, 세션 유지, 로그아웃</td>
+<td>로그인</td>
+<td>0.5일</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Supabase 동기화, 대기열, 첫 로그인 기록 올리기, 동기화 상태 표시</td>
+<td>v2.0</td>
+<td>1.5일</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Delicious Library 회귀 확인(기존 앱 로그인·데이터 정상 동작)</td>
+<td>확인 보고서(<code>docs/</code>)</td>
+<td>0.5일</td>
+</tr>
+</tbody>
+</table>
+<p><strong>총 약 8일</strong> (하루 2~3시간 기준 3주 안팎)</p>
+<hr />
+<h2 id="13-성공-지표">13. 성공 지표</h2>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>목표(본인·지인 30명 시범 사용 기준)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>온보딩 완료율 (빙고판 생성까지)</td>
+<td>90% 이상</td>
+</tr>
+<tr>
+<td>첫 줄 빙고 달성까지 걸린 기간</td>
+<td>평균 6주 이내 (4×4 기준)</td>
+</tr>
+<tr>
+<td>3개월 뒤에도 책을 기록하는 비율</td>
+<td>50% 이상</td>
+</tr>
+<tr>
+<td>이미지 공유 1회 이상 사용 비율</td>
+<td>40% 이상</td>
+</tr>
+<tr>
+<td>기록된 책의 분야(태그) 수</td>
+<td>사용자당 평균 5개 이상</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-위험-요소와-대응">14. 위험 요소와 대응</h2>
+<table>
+<thead>
+<tr>
+<th>위험</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>브라우저 데이터 삭제로 기록 유실</td>
+<td>Supabase가 기준 데이터이므로 다시 로그인하면 복원, JSON 백업도 유지</td>
+</tr>
+<tr>
+<td>한 줄 독서 작업이 Delicious Library에 영향</td>
+<td>전용 스키마·<code>ral_</code> 접두어·7.6절 체크리스트, 적용 전 SQL 검토, 적용 후 Delicious Library 회귀 확인</td>
+</tr>
+<tr>
+<td>인증 설정 변경으로 기존 앱 로그인 문제</td>
+<td>Site URL 등은 바꾸지 않고 Redirect URLs 추가만 허용</td>
+</tr>
+<tr>
+<td><code>file://</code>로 열 때 매직 링크 로그인 불가</td>
+<td>이메일+비밀번호 로그인 사용 또는 정적 호스팅 주소로 사용</td>
+</tr>
+<tr>
+<td>무료 플랜 한도(용량·요청·일시 정지)</td>
+<td>두 앱 합산 사용량을 분기마다 확인, 로컬 캐시로 요청 수 줄이기</td>
+</tr>
+<tr>
+<td>5×5 판이 휴대폰에서 답답함</td>
+<td>칸 탭 시 확대 보기, 미션 문구 축약 표시, 가로 모드 지원</td>
+</tr>
+<tr>
+<td>미션 판정이 애매함("이 책이 과학 교양서인가?")</td>
+<td>판정은 사용자 자율, "내 기준으로 인정" 원칙 안내</td>
+</tr>
+<tr>
+<td>목표가 너무 커 중도 포기</td>
+<td>크기 추천 배지, 연중 목표 수정 허용</td>
+</tr>
+<tr>
+<td>이미지 속 한글 글꼴 깨짐</td>
+<td>Canvas에 시스템 글꼴 지정, 렌더 전 <code>document.fonts.ready</code> 대기</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="15-향후-확장-v2-이후">15. 향후 확장 (v2 이후)</h2>
+<ul>
+<li>독서 모임 모드: 같은 판 코드로 참여, 멤버별 진행 이미지 합치기</li>
+<li>도서 검색 API 연동(표지·쪽수·분야 자동 입력)</li>
+<li>월간 미니 빙고(3×3) + 연간 빙고(5×5) 동시 운영</li>
+<li>배지·업적 시스템(첫 빙고, 블랙아웃, 10개 분야 정복 등)</li>
+<li>PWA 설치, 오프라인 우선 동기화 고도화</li>
+<li>Delicious Library 장서와 연결(선택): 읽은 책을 Delicious Library 책 정보에서 불러오기 — 이때도 읽기 전용 조회만 허용</li>
+</ul>
+<hr />
+<h2 id="16-프로젝트-폴더-구조와-문서-관리">16. 프로젝트 폴더 구조와 문서 관리</h2>
+<p>기획·개발 문서는 <strong><code>docs/</code></strong>, 디자인 가이드와 시안은 <strong><code>design/</code></strong> 폴더에 저장합니다.</p>
+<pre><code>read-a-line/
+├─ index.html                     # 앱 본체 (단일 HTML)
+├─ docs/                          # 기획·개발 문서
+│  ├─ PRD_한줄독서.md             # 제품 요구사항 문서 (원본)
+│  ├─ PRD_한줄독서.html           # 같은 내용의 보기·인쇄용
+│  └─ 개발보고서_YYYY-MM-DD_주제.md  # 단계별 개발 보고서 (앞으로 추가)
+├─ design/                        # 디자인 가이드와 시안
+│  ├─ DESIGN.md                   # 디자인 가이드 (토큰·컴포넌트·레이아웃 규칙)
+│  ├─ 시안_고풍서재.html          # 데스크톱 + 스마트폰 시안
+│  ├─ 시안_빙고팝.html
+│  └─ 시안_모던마일스톤.html
+└─ supabase/
+   └─ migrations/                 # read_a_line 스키마 SQL (파일 이름에 ral_ 포함)
+      ├─ 20261106000000_ral_init.sql
+      ├─ 20261111000000_ral_rewards_sound.sql
+      └─ 20261111000100_ral_cells_user_idx.sql
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>폴더</th>
+<th>넣는 문서</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/</code></td>
+<td>PRD, 개발 보고서, 회의·결정 기록, 테스트 결과</td>
+<td>Markdown을 원본으로 두고, 공유·인쇄용 HTML을 함께 만듭니다. PRD를 고치면 문서 정보 표의 버전·수정일을 갱신합니다. 개발 보고서는 <code>개발보고서_YYYY-MM-DD_주제.md</code> 형식으로 이름 짓습니다.</td>
+</tr>
+<tr>
+<td><code>design/</code></td>
+<td>DESIGN.md, 테마별 시안 HTML, 아이콘·이미지 원본</td>
+<td>디자인을 바꿀 때는 DESIGN.md를 먼저 고치고 시안과 앱에 반영합니다. 시안 파일은 <code>시안_테마명.html</code>로 이름 짓고, 테마마다 데스크톱(1440×900)과 스마트폰(390×844) 화면을 모두 담습니다.</td>
+</tr>
+<tr>
+<td><code>supabase/</code></td>
+<td>마이그레이션 SQL</td>
+<td>7.6절 규칙을 따르며, <code>read_a_line</code> 스키마 밖의 객체를 다루는 SQL은 두지 않습니다.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>디자인 캔버스(온라인 시안): https://claude.ai/artifact/NEm6ALBs9TEc9z5p7e2RJ9</li>
+</ul>
+<hr />
+<h2 id="부록-a-앱-이름-후보">부록 A. 앱 이름 후보</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>한글 이름</th>
+<th>영어 이름</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>한 줄 독서</strong></td>
+<td><strong>Read a Line</strong></td>
+<td>빙고 "한 줄"을 완성하는 재미와 책 "한 줄"을 읽는 꾸준함을 함께 담은 이름</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>책칸</strong></td>
+<td><strong>Bookingo</strong></td>
+<td>책장의 "칸"과 빙고판의 "칸"이 겹치는 이름, Book + Bingo 합성어</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>칸칸서재</strong></td>
+<td><strong>Bingo Shelf</strong></td>
+<td>칸칸이 채워 가는 나만의 서재, 빙고판이 곧 책장</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>책갈피 빙고</strong></td>
+<td><strong>Bookmark Bingo</strong></td>
+<td>읽은 책마다 책갈피를 꽂듯 칸에 표시하는 챌린지</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>오늘도 한 칸</strong></td>
+<td><strong>One More Square</strong></td>
+<td>"오늘도 한 칸만 더" — 부담 없이 이어 가는 독서 습관</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>✅ <strong>확정: 1번 「한 줄 독서 (Read a Line)」</strong> — 저장 키는 <code>readALine:v1</code>을 그대로 사용합니다.</p>
+</blockquote>
+</main>
+<div class="toolbar"><button onclick="window.print()">🖨️ 인쇄 / PDF 저장</button></div>
+<script>document.querySelectorAll('main table').forEach(t=>{const w=document.createElement('div');w.className='table-wrap';t.parentNode.insertBefore(w,t);w.appendChild(t)});</script>
+</body>
+</html>
